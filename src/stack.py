@@ -10,13 +10,7 @@ class Stack(object):
 
     def pop(self):
         pop_val = self.stack.pop()
-        print(pop_val)
+        return(pop_val)
 
     def push(self, val):
         self.stack.insert(val)
-
-new_stack = Stack((2, 3, 9, 16))
-new_stack.push(22)
-new_stack.pop()
-new_stack.pop()
-new_stack.pop()
