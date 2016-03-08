@@ -8,7 +8,7 @@ setup(
     author='Paul Sheirdan and Adam Palmer',
     author_email='paul.sheridan@me.com and **adams email**',
     license='MIT',
-    py_modules=['linked_list', 'stack.py'],
+    py_modules=['linked_list', 'stack'],
     package_dir={'': 'src'},
     extras_require={'test': ['pytest', 'pytest-xdist', 'tox']},
 )
