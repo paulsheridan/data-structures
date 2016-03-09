@@ -3,8 +3,6 @@ import pytest
 
 
 TUP_INPUT = (3, 4, 5)
-
-
 LIST_INPUT = [6, 7, 8, 9]
 
 
