@@ -55,3 +55,27 @@ class DoubleLinkedList(LinkedList):
         else:
             self.head = new_node
         self.tail = new_node
+
+    def shift(self):
+        return_val = self.tail.data
+        self.tail = self.tail.prev_node
+        self.tail.set_next(None)
+        return return_val
+
+    def remove(self, val):
+        current = self.head
+        found = False
+        while current and found is False:
+            if current.data == val:
+                found = True
+                if current.next_node is None:
+                    pop()
+                elif current.prev_node is None:
+                    shift()
+                else:
+                    current.prev_node.next_node = current.next_node
+                    current.next_node.prev_node = current.prev_node
+            else:
+                current = current.next_node
+        if current is None:
+            print('The specified value is not in the list')

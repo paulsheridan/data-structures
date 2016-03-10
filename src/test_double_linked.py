@@ -36,6 +36,18 @@ def test_append():
 
 
 def test_pop():
-    from linked_list import LinkedList
-    new_list = LinkedList(LIST_INPUT)
+    from double_linked import DoubleLinkedList
+    new_list = DoubleLinkedList(LIST_INPUT)
     assert new_list.pop() == 9
+
+def test_shift():
+    from double_linked import DoubleLinkedList
+    new_list = DoubleLinkedList(LIST_INPUT)
+    assert new_list.shift() == 6
+
+
+def test_remove():
+    from double_linked import DoubleLinkedList
+    new_list = DoubleLinkedList(LIST_INPUT)
+    new_list.remove(9)
+    assert new_list.head.data == 8
