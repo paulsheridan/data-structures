@@ -67,3 +67,10 @@ def test_remove():
     new_list.remove(9)
     new_list.remove(8)
     assert new_list.size() == 2
+
+
+def test_remove_error():
+    from double_linked import DoubleLinkedList
+    new_list = DoubleLinkedList(LIST_INPUT)
+    with pytest.raises(ValueError):
+        new_list.remove('eight')

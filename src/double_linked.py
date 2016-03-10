@@ -78,4 +78,4 @@ class DoubleLinkedList(LinkedList):
             else:
                 current = current.next_node
         if current is None:
-            print('The specified value is not in the list')
+            raise ValueError
