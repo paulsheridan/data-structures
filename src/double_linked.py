@@ -69,9 +69,9 @@ class DoubleLinkedList(LinkedList):
             if current.data == val:
                 found = True
                 if current.next_node is None:
-                    pop()
+                    self.pop()
                 elif current.prev_node is None:
-                    shift()
+                    self.shift()
                 else:
                     current.prev_node.next_node = current.next_node
                     current.next_node.prev_node = current.prev_node
