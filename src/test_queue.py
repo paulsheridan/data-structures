@@ -19,3 +19,13 @@ def test_dequeue():
     from queue import Queue
     new_queue = Queue((TEST_INPUT_ONE))
     assert new_queue.dequeue() == 2
+
+def test_size():
+    from queue import Queue
+    new_queue = Queue((TEST_INPUT_ONE))
+    assert new_queue.size() == 5
+
+def test_peek():
+    from queue import Queue
+    new_queue = Queue((TEST_INPUT_ONE))
+    assert new_queue.peek() == 2

@@ -15,3 +15,9 @@ class Queue(object):
     def dequeue(self):
         shift_val = self.queue.shift()
         return shift_val
+
+    def size(self):
+        return self.queue.size()
+
+    def peek(self):
+        return self.queue.tail.data
