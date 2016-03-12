@@ -9,8 +9,8 @@ LIST_INPUT = [6, 7, 8, 9]
 
 
 def test_prev_node_init():
-    from double_linked import Dbl_Node
-    node = Dbl_Node()
+    from double_linked import Node
+    node = Node()
     assert node.next_node is None and node.prev_node is None
 
 
@@ -52,7 +52,8 @@ def test_append_list():
 def test_pop():
     from double_linked import DoubleLinkedList
     new_list = DoubleLinkedList(LIST_INPUT)
-    assert new_list.pop() == 9
+    new_list.pop()
+    assert new_list.pop() == 8
 
 
 def test_shift():
@@ -66,7 +67,7 @@ def test_remove():
     new_list = DoubleLinkedList(LIST_INPUT)
     new_list.remove(9)
     new_list.remove(8)
-    assert new_list.size() == 2
+    assert new_list.head.data == 7
 
 
 def test_remove_error():

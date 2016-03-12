@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Module for double linked list."""
-
-from linked_list import LinkedList
-from linked_list import Node
 
 
-class Dbl_Node(Node):
+class Node(object):
     """Node class."""
 
     def __init__(self, data=None, next_node=None):
@@ -21,7 +17,7 @@ class Dbl_Node(Node):
         self.prev_node = prev_node
 
 
-class DoubleLinkedList(LinkedList):
+class DoubleLinkedList(object):
     """Class for doube linked list."""
 
     def __init__(self, input=None):
@@ -34,10 +30,10 @@ class DoubleLinkedList(LinkedList):
                 print('input is not an iterable')
 
     def insert(self, val):
-        new_node = Dbl_Node(val)
+        new_node = Node(val)
         if self.head is not None:
             new_node.set_next(self.head)
-            self.head.set_prev(new_node)
+            self.head.prev_node = new_node
         else:
             self.tail = new_node
         self.head = new_node
@@ -49,7 +45,7 @@ class DoubleLinkedList(LinkedList):
         return return_val
 
     def append(self, val):
-        new_node = Dbl_Node(val)
+        new_node = Node(val)
         if self.tail is not None:
             self.tail.next_node = new_node.prev_node
         else:
@@ -69,12 +65,13 @@ class DoubleLinkedList(LinkedList):
             if current.data == val:
                 found = True
                 if current.next_node is None:
-                    self.pop()
-                elif current.prev_node is None:
                     self.shift()
+                elif current.prev_node is None:
+                    self.pop()
                 else:
                     current.prev_node.next_node = current.next_node
                     current.next_node.prev_node = current.prev_node
+
             else:
                 current = current.next_node
         if current is None:
