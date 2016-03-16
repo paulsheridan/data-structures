@@ -28,7 +28,7 @@ class Heap(object):
 
     def _sift_down(self):
         idx = 0
-        while idx < len(self.heap) - 1:
+        while idx < (len(self.heap) - 1)//2:
             if self.heap[idx] < self.heap[idx*2] or self.heap[idx] < self.heap[(idx*2) + 1]:
                 bigger_child = max(self.heap[idx*2], self.heap[(idx*2) + 1])
                 child_idx = self.heap.index(bigger_child)
@@ -43,8 +43,8 @@ class Heap(object):
         try:
             return_val = self.heap[0]
             del self.heap[0]
-            self.heap.insert(1, self.heap.pop(len(self.heap) - 1))
-            self._sift_down()
+            self.heap.insert(0, self.heap.pop(len(self.heap) - 1))
+            # self._sift_down()
             return return_val
         except IndexError:
             print('This heap is empty.')
