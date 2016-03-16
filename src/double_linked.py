@@ -20,12 +20,12 @@ class Node(object):
 class DoubleLinkedList(object):
     """Class for doube linked list."""
 
-    def __init__(self, input=None):
+    def __init__(self, user_input=None):
         self.head = None
         self.tail = None
-        if input is not None:
+        if user_input is not None:
             try:
-                [self.insert(x) for x in input]
+                [self.insert(x) for x in user_input]
             except TypeError:
                 print('input is not an iterable')
 
