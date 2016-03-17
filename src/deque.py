@@ -6,7 +6,7 @@ from double_linked import DoubleLinkedList
 class Deque(object):
     '''Deque is a composition of Double Linked List'''
 
-    def __init__(self, input):
+    def __init__(self, input=None):
         '''create doubly linked list'''
         self.deque = DoubleLinkedList(input)
 
@@ -23,15 +23,21 @@ class Deque(object):
         return self.deque.shift()
 
     def peek(self):
-        return self.deque.head.data
+        try:
+            return self.deque.head.data
+        except AttributeError:
+            return None
 
     def peek_left(self):
-        return self.deque.tail.data
+        try:
+            return self.deque.tail.data
+        except AttributeError:
+            return None
 
     def size(self):
         size = 0
         current_spot = self.deque.head
         while current_spot:
             size += 1
-            current_spot = current_spot.next_node
+            current_spot = current_spot.toward_tail
         return size
