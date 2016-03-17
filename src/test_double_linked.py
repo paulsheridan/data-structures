@@ -8,17 +8,17 @@ LIST_INPUT = [6, 7, 8, 9]
 
 
 
-def test_prev_node_init():
+def test_toward_head_init():
     from double_linked import Node
     node = Node()
-    assert node.next_node is None and node.prev_node is None
+    assert node.toward_tail is None and node.toward_head is None
 
 
 # @pytest.fixture(scope='function')
 def test_linked_node_init_next():
     from double_linked import DoubleLinkedList
     new_list = DoubleLinkedList((3, 4, 5))
-    assert new_list.head.next_node.data == 4
+    assert new_list.head.toward_tail.data == 4
 
 
 def test_insert_int():
@@ -66,8 +66,8 @@ def test_remove():
     from double_linked import DoubleLinkedList
     new_list = DoubleLinkedList(LIST_INPUT)
     new_list.remove(9)
-    new_list.remove(8)
-    assert new_list.head.data == 7
+    new_list.remove(7)
+    assert new_list.head.data == 8
 
 
 def test_remove_error():
