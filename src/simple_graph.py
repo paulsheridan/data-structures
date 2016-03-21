@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+from collections import Counter
+from stack import Stack
+from queue import Queue
+
 
 class Node(object):
     """Node Object"""
@@ -62,3 +66,29 @@ class Graph(object):
                 return False
         except KeyError:
             print("One of those nodes doesn't exist.")
+
+    def depth_first_traverse(self, node):
+        stack, path = Stack(), []
+        stack.push(node)
+        try:
+            while True:
+                node = stack.pop()
+                if node not in path:
+                    path = path + [node]
+                    for item in self.node_map[node]:
+                        stack.push(item)
+        except KeyError:
+            return path
+
+    def breadth_first_traverse(self, node):
+        queue, path = Queue(), []
+        queue.enqueue(node)
+        try:
+            while True:
+                node = queue.dequeue()
+                if node not in path:
+                    path = path + [node]
+                    for item in self.node_map[node]:
+                        queue.enqueue(item)
+        except KeyError:
+            return path

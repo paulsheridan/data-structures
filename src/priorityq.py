@@ -53,9 +53,3 @@ class PriorityQueue(object):
 
     def length(self):
         return len(self.queue)
-
-big_queue = PriorityQueue([(34, 34), (56, 56), (78, 78), (90, 90), (3, 3), (4, 4), (1, 1), (6, 6)])
-
-print(big_queue.pop())
-print(big_queue.pop())
-print(big_queue.pop())
