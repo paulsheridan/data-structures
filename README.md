@@ -10,3 +10,7 @@ A Linked List is useful when:
 A Stack might be useful when:
     You'd like to completely walk through a file system data tree using its first-in-last-out structure.
     You want a list structured only to pop things out in the reverse order you put them in.
+
+The Heap self-organizes whenever a change is made and will always pop the largest available value inside it.
+
+The Priority Queue takes tuples of value/priority (from 0 to 4) and organizes the inputs by priority.  The highest priority tuples will always pop from the list.

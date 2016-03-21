@@ -4,24 +4,19 @@ from stack import Stack
 from queue import Queue
 
 
-class Node(object):
-    """Node Object"""
-    def __init__(self, val=None):
-        self.val = val
-
-
 class Graph(object):
     "Create a simple Graph."
     def __init__(self):
         self.node_map = {}
 
-    def add_node(self, val):
-        new_node = Node(val)
-        self.node_map[new_node] = []
-        return new_node
+    def add_node(self, node):
+        self.node_map[node] = []
 
     def del_node(self, node):
         self.node_map.pop(node)
+        for key in self.node_map:
+            if node in key:
+                self.node_map[key].remove(node)
 
     def node(self):
         node_list = []
