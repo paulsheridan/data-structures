@@ -26,7 +26,6 @@ class DoubleLinkedList(object):
         new_node = Node(val)
         if self.head is not None:
             new_node.toward_tail = self.head
-            new_node.toward_head = None
             self.head.toward_head = new_node
             self.head = new_node
         else:
@@ -34,31 +33,36 @@ class DoubleLinkedList(object):
 
     def append(self, val):
         new_node = Node(val)
-        if self.head is not None:
+        if self.tail is not None:
             new_node.toward_head = self.tail
-            new_node.toward_tail = None
             self.tail.toward_tail = new_node
             self.tail = new_node
         else:
             self.head = self.tail = new_node
 
     def pop(self):
-        if self.head is not None:
-            head_val = self.head.data
-            self.head.toward_head = None
-            self.head = self.head.toward_tail
-            return head_val
-        else:
+        if not self.head:
             raise IndexError('list is empty')
+        else:
+            head_val = self.head.data
+            if self.head == self.tail:
+                self.head = self.tail = None
+            else:
+                self.head = self.head.toward_tail
+                self.head.toward_head = None
+            return head_val
 
     def shift(self):
-        if self.tail is not None:
-            tail_val = self.tail.data
-            self.tail.toward_tail = None
-            self.tail = self.tail.toward_head
-            return tail_val
-        else:
+        if not self.tail:
             raise IndexError('list is empty')
+        else:
+            tail_val = self.tail.data
+            if self.head == self.tail:
+                self.head = self.tail = None
+            else:
+                self.tail = self.tail.toward_head
+                self.tail.toward_tail = None
+            return tail_val
 
     def remove(self, val):
         current = self.head
@@ -78,9 +82,10 @@ class DoubleLinkedList(object):
         if current is None:
             raise ValueError('item not in list')
 
-
-new_dll = DoubleLinkedList([1, 2, 3, 4, 5, 6, 7])
-print(new_dll.pop())
-print(new_dll.shift())
-print(new_dll.pop())
-print(new_dll.shift())
+    def _size(self):
+        size = 0
+        current_spot = self.head
+        while current_spot:
+            size += 1
+            current_spot = current_spot.toward_tail
+        return size

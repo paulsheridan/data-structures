@@ -6,6 +6,9 @@ VAL_LIST = [10, "person", 'graphs', 'are', 'boring', 77, 'steam', 6.66778]
 PAIR_LIST = [(10, "person"), ('graphs', 'are'), ('boring', 77), ('steam', 6.66778)]
 MAP_LIST = [(10, "person"), (10, 'are'), (10, 77), (10, 6.66778)]
 
+GRAPH = {1: [2, 3], 2: [4, 5, 6], 3: [7, 8], 4: [], 5: [], 6: [], 7: [6], 8: []}
+GRAPH_LIST = [[{1: [5, 2], 2:[6, 7], 5: [3, 9]}, [1, 5, 2, 6, 7]]]
+
 
 @pytest.mark.parametrize('value', VAL_LIST)
 def test_add_node(value):
@@ -19,9 +22,9 @@ def test_add_node(value):
 def test_del_node(value):
     from simple_graph import Graph
     new_graph = Graph()
-    test_node = new_graph.add_node(value)
-    new_graph.del_node(test_node)
-    assert test_node not in new_graph.node_map
+    new_graph.add_node(value)
+    new_graph.del_node(value)
+    assert value not in new_graph.node_map
 
 
 @pytest.mark.parametrize('value', VAL_LIST)
@@ -29,8 +32,7 @@ def test_node(value):
     from simple_graph import Graph
     new_graph = Graph()
     new_graph.add_node(value)
-    return_list = new_graph.node()
-    assert return_list[0].val == value
+    assert value in new_graph.node()
 
 
 @pytest.mark.parametrize('key, value', PAIR_LIST)
@@ -61,8 +63,8 @@ def test_del_edge(key, value):
 def test_has_node(value):
     from simple_graph import Graph
     new_graph = Graph()
-    test_node = new_graph.add_node(value)
-    assert new_graph.has_node(test_node) is not False
+    new_graph.add_node(value)
+    assert new_graph.has_node(value) is not False
 
 
 def test_neighbors():
@@ -81,3 +83,25 @@ def test_adjacent(key, value):
     node2 = new_graph.add_node(value)
     new_graph.add_edge(node1, node2)
     assert new_graph.adjacent(node1, node2) is True
+
+
+def test_depth_first_traverse():
+    from simple_graph import Graph
+    new_graph = Graph()
+    new_graph.node_map = GRAPH
+    assert new_graph.depth_first_traverse(1) == [1, 2, 4, 5, 6, 3, 7, 8]
+
+
+def test_breadth_first_traverse():
+    from simple_graph import Graph
+    new_graph = Graph()
+    new_graph.node_map = GRAPH
+    assert new_graph.breadth_first_traverse(1) == [1, 2, 3, 4, 5, 6, 7, 8]
+
+
+@pytest.mark.parametrize('input, output', GRAPH_LIST)
+def test_traversal(input, output):
+    from simple_graph import Graph
+    new_graph = Graph()
+    new_graph.node_map = input
+    assert new_graph.depth_first_traverse(1) == output

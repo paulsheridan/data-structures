@@ -3,28 +3,23 @@
 
 class Node(object):
     """Node class"""
-    def __init__(self, data=None, next_node=None):
+    def __init__(self, data=None):
         self.data = data
-        self.next_node = next_node
-
-    def set_next(self, next_node):
-        self.next_node = next_node
+        self.toward_tail = None
 
 
 class LinkedList(object):
-    def __init__(self, head=None):
-        self.head = head
-        if self.head is not None:
+    def __init__(self, user_input=None):
+        self.head = None
+        if user_input is not None:
             try:
-                itbl = iter(self.head)
-                self.head = None
-                [self.insert(x) for x in itbl]
+                [self.insert(x) for x in user_input]
             except TypeError:
                 print('input is not an iterable')
 
     def insert(self, val):
         new_node = Node(val)
-        new_node.set_next(self.head)
+        new_node.toward_tail = self.head
         self.head = new_node
 
     def search(self, val):
@@ -35,13 +30,13 @@ class LinkedList(object):
                 found = True
                 return val
             else:
-                current = current.next_node
+                current = current.toward_tail
         else:
             return None
 
     def pop(self):
         return_val = self.head.data
-        self.head = self.head.next_node
+        self.head = self.head.toward_tail
         return return_val
 
     def size(self):
@@ -49,7 +44,7 @@ class LinkedList(object):
         current_spot = self.head
         while current_spot:
             size += 1
-            current_spot = current_spot.next_node
+            current_spot = current_spot.toward_tail
         return size
 
     def remove(self, val):
@@ -61,18 +56,18 @@ class LinkedList(object):
                 found = True
             else:
                 previous = current
-                current = current.next_node
+                current = current.toward_tail
         if current is None:
             print('The specified value is not in the list')
         if previous is None:
-            self.head = current.next_node
+            self.head = current.toward_tail
         else:
-            previous.set_next = current.next_node
+            previous.set_next = current.toward_tail
 
     def display(self):
         display_list = []
         current = self.head
         while current:
             display_list.append(current.data)
-            current = current.next_node
+            current = current.toward_tail
         return tuple(reversed(display_list))

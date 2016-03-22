@@ -7,14 +7,19 @@ TUP_INPUT = (3, 4, 5)
 LIST_INPUT = [6, 7, 8, 9]
 
 
-
 def test_toward_head_init():
     from double_linked import Node
     node = Node()
     assert node.toward_tail is None and node.toward_head is None
 
 
-# @pytest.fixture(scope='function')
+def test_empty_double_linked():
+    from double_linked import DoubleLinkedList
+    new_list = DoubleLinkedList()
+    new_list.insert(999)
+    assert new_list.shift() == 999
+
+
 def test_linked_node_init_next():
     from double_linked import DoubleLinkedList
     new_list = DoubleLinkedList((3, 4, 5))

@@ -63,21 +63,25 @@ class Graph(object):
             print("One of those nodes doesn't exist.")
 
     def depth_first_traverse(self, node):
-        stack, path = Stack(), []
+        stack = Stack()
+        path = []
         stack.push(node)
+        # import pdb; pdb.set_trace()
         try:
             while True:
                 node = stack.pop()
                 if node not in path:
                     path = path + [node]
-                    for item in self.node_map[node]:
+                    for item in reversed(self.node_map[node]):
                         stack.push(item)
-        except KeyError:
+        except (AttributeError, IndexError):
             return path
 
     def breadth_first_traverse(self, node):
-        queue, path = Queue(), []
+        queue = Queue()
+        path = []
         queue.enqueue(node)
+        # import pdb; pdb.set_trace()
         try:
             while True:
                 node = queue.dequeue()
@@ -85,5 +89,5 @@ class Graph(object):
                     path = path + [node]
                     for item in self.node_map[node]:
                         queue.enqueue(item)
-        except KeyError:
+        except (AttributeError, IndexError):
             return path

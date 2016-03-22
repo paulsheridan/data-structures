@@ -6,8 +6,8 @@ from linked_list import LinkedList
 class Stack(object):
     '''Stack is a composition of LinkedList'''
 
-    def __init__(self, init_val):
-        self.stack = LinkedList(init_val)
+    def __init__(self, val=None):
+        self.stack = LinkedList(val)
 
     def pop(self):
         pop_val = self.stack.pop()
