@@ -7,7 +7,16 @@ PAIR_LIST = [(10, "person"), ('graphs', 'are'), ('boring', 77), ('steam', 6.6677
 MAP_LIST = [(10, "person"), (10, 'are'), (10, 77), (10, 6.66778)]
 
 GRAPH = {1: [2, 3], 2: [4, 5, 6], 3: [7, 8], 4: [], 5: [], 6: [], 7: [6], 8: []}
-GRAPH_LIST = [[{1: [5, 2], 2:[6, 7], 5: [3, 9]}, [1, 5, 2, 6, 7]]]
+GRAPH_LIST = [[{1: []}, [1], [1]],
+              [{1: [1]}, [1], [1]],
+              [{1: [2], 2: []}, [1, 2], [1, 2]],
+              [{1: [2], 2: [1]}, [1, 2], [1, 2]],
+              [{1: [2], 2: [3], 3: [1]}, [1, 2, 3], [1, 2, 3]],
+              [{1: [2, 3], 2: [], 3: []}, [1, 2, 3], [1, 2, 3]],
+              [{1: [2, 3], 2: [3], 3: []}, [1, 2, 3], [1, 2, 3]],
+              [{1: [2, 3], 2: [4, 5, 6],
+                3: [7, 8], 4: [], 5: [], 6: [], 7: [6], 8: []},
+              [1, 2, 4, 5, 6, 3, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8]]]
 
 
 @pytest.mark.parametrize('value', VAL_LIST)
@@ -99,9 +108,17 @@ def test_breadth_first_traverse():
     assert new_graph.breadth_first_traverse(1) == [1, 2, 3, 4, 5, 6, 7, 8]
 
 
-@pytest.mark.parametrize('input, output', GRAPH_LIST)
-def test_traversal(input, output):
+@pytest.mark.parametrize('input_dict, depth_output, breadth_output', GRAPH_LIST)
+def test_depth_traversal_param(input_dict, depth_output, breadth_output):
     from simple_graph import Graph
     new_graph = Graph()
-    new_graph.node_map = input
-    assert new_graph.depth_first_traverse(1) == output
+    new_graph.node_map = input_dict
+    assert new_graph.depth_first_traverse(1) == depth_output
+
+
+@pytest.mark.parametrize('input_dict, depth_output, breadth_output', GRAPH_LIST)
+def test_breadth_traversal_param(input_dict, depth_output, breadth_output):
+    from simple_graph import Graph
+    new_graph = Graph()
+    new_graph.node_map = input_dict
+    assert new_graph.breadth_first_traverse(1) == breadth_output

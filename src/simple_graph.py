@@ -66,7 +66,6 @@ class Graph(object):
         stack = Stack()
         path = []
         stack.push(node)
-        # import pdb; pdb.set_trace()
         try:
             while True:
                 node = stack.pop()
@@ -81,7 +80,6 @@ class Graph(object):
         queue = Queue()
         path = []
         queue.enqueue(node)
-        # import pdb; pdb.set_trace()
         try:
             while True:
                 node = queue.dequeue()
