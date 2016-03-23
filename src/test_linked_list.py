@@ -9,20 +9,12 @@ LIST_INPUT = [6, 7, 8, 9]
 def test_empty_node_init():
     from linked_list import Node
     empty_node = Node()
-    assert empty_node.next_node is None
-
-
-def test_linked_node_init_next():
-    from linked_list import Node
-    empty_node = Node()
-    linked_node = Node(12, empty_node)
-    assert linked_node.next_node == empty_node
+    assert empty_node.toward_tail is None
 
 
 def test_linked_node_init_data():
     from linked_list import Node
-    empty_node = Node()
-    linked_node_two = Node(12, empty_node)
+    linked_node_two = Node(12)
     assert linked_node_two.data == 12
 
 

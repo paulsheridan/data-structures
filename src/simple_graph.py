@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-
-class Node(object):
-    """Node Object"""
-    def __init__(self, val=None):
-        self.val = val
+from collections import Counter
+from stack import Stack
+from queue import Queue
 
 
 class Graph(object):
@@ -11,13 +9,14 @@ class Graph(object):
     def __init__(self):
         self.node_map = {}
 
-    def add_node(self, val):
-        new_node = Node(val)
-        self.node_map[new_node] = []
-        return new_node
+    def add_node(self, node):
+        self.node_map[node] = []
 
     def del_node(self, node):
         self.node_map.pop(node)
+        for key in self.node_map:
+            if node in key:
+                self.node_map[key].remove(node)
 
     def node(self):
         node_list = []
@@ -62,3 +61,41 @@ class Graph(object):
                 return False
         except KeyError:
             print("One of those nodes doesn't exist.")
+
+    def depth_first_traverse(self, node):
+        stack = Stack()
+        path = []
+        stack.push(node)
+        try:
+            while True:
+                node = stack.pop()
+                if node not in path:
+                    path = path + [node]
+                    for item in reversed(self.node_map[node]):
+                        stack.push(item)
+        except (AttributeError, IndexError):
+            return path
+
+    def breadth_first_traverse(self, node):
+        queue = Queue()
+        path = []
+        queue.enqueue(node)
+        try:
+            while True:
+                node = queue.dequeue()
+                if node not in path:
+                    path = path + [node]
+                    for item in self.node_map[node]:
+                        queue.enqueue(item)
+        except (AttributeError, IndexError):
+            return path
+
+if __name__ == '__main__':
+    new_graph = Graph()
+    new_graph.node_map = {1: [2, 3], 2: [4, 5, 6],
+                          3: [7, 8], 4: [], 5: [],
+                          6: [], 7: [6], 8: []}
+    print('*** A sample graph traversed breadth-first. ***')
+    new_graph.breadth_first_traverse()
+    print('*** That same graph traversed depth-first. ***')
+    new_graph.depth_first_traverse()

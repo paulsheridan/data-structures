@@ -6,13 +6,14 @@ class PriorityQueue(object):
 
     def __init__(self, user_input=None):
         self.queue = []
-        try:
-            [self.insert(tup) for tup in user_input]
-        except TypeError:
-            print('Argument is not iterable.')
+        if user_input is not None:
+            try:
+                [self.insert(tup) for tup in user_input]
+            except TypeError:
+                print('Argument is not iterable.')
 
     def _sift_up(self):
-        idx = self.length() - 1
+        idx = self._length() - 1
         while idx > 0:
             child = idx
             parent = (idx - 1) // 2
@@ -24,7 +25,7 @@ class PriorityQueue(object):
 
     def _sift_down(self):
         idx = 0
-        while idx < (self.length() - 1) // 2:
+        while idx < (self._length() - 1) // 2:
             print(idx)
             parent = idx
             child_l = idx * 2 + 1
@@ -45,17 +46,11 @@ class PriorityQueue(object):
         try:
             return_val = self.queue[0]
             del self.queue[0]
-            self.queue.insert(0, self.queue.pop(self.length() - 1))
+            self.queue.insert(0, self.queue.pop(self._length() - 1))
             self._sift_down()
             return return_val
         except IndexError:
             print('This queue is empty.')
 
-    def length(self):
+    def _length(self):
         return len(self.queue)
-
-big_queue = PriorityQueue([(34, 34), (56, 56), (78, 78), (90, 90), (3, 3), (4, 4), (1, 1), (6, 6)])
-
-print(big_queue.pop())
-print(big_queue.pop())
-print(big_queue.pop())
