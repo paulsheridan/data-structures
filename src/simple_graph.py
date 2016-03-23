@@ -89,3 +89,13 @@ class Graph(object):
                         queue.enqueue(item)
         except (AttributeError, IndexError):
             return path
+
+if __name__ == '__main__':
+    new_graph = Graph()
+    new_graph.node_map = {1: [2, 3], 2: [4, 5, 6],
+                          3: [7, 8], 4: [], 5: [],
+                          6: [], 7: [6], 8: []}
+    print('*** A sample graph traversed breadth-first. ***')
+    new_graph.breadth_first_traverse()
+    print('*** That same graph traversed depth-first. ***')
+    new_graph.depth_first_traverse()
