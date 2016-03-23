@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# from collections import Counter
 from stack import Stack
 from queue import Queue
 
@@ -26,9 +25,9 @@ class Graph(object):
 
     def edges(self):
         edge_list = []
-        for key, value in self.node_map:
-            for item in value:
-                edge_list.append((key, value))
+        for key in self.node_map:
+            for item in self.node_map[key]:
+                edge_list.append({(key, item): self.node_map[key][item]})
         return edge_list
 
     def add_edge(self, node1, node2):
@@ -77,7 +76,7 @@ class Graph(object):
                 node = stack.pop()
                 if node not in path:
                     path = path + [node]
-                    for item in reversed(self.node_map[node]):
+                    for item in self.node_map[node]:
                         stack.push(item)
         except (AttributeError, IndexError):
             return path
