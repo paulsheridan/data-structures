@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from collections import Counter
+# from collections import Counter
 from stack import Stack
 from queue import Queue
 
@@ -10,13 +10,13 @@ class Graph(object):
         self.node_map = {}
 
     def add_node(self, node):
-        self.node_map[node] = []
+        self.node_map[node] = {}
 
     def del_node(self, node):
         self.node_map.pop(node)
         for key in self.node_map:
             if node in key:
-                self.node_map[key].remove(node)
+                self.node_map[key].pop(node, None)
 
     def node(self):
         node_list = []
@@ -33,14 +33,16 @@ class Graph(object):
 
     def add_edge(self, node1, node2):
         if node2 not in self.node_map:
-            self.node_map[node2] = []
+            self.node_map[node2] = {}
         if node1 not in self.node_map:
-            self.node_map[node1] = [node2]
+            self.node_map[node1] = {}
+        if node2 not in self.node_map[node1]:
+            self.node_map[node1][node2] = 1
         else:
-            self.node_map[node1] += [node2]
+            self.node_map[node1][node2] += 1
 
     def del_edge(self, node1, node2):
-        self.node_map[node1].remove(node2)
+        self.node_map[node1][node2] -= 1
 
     def has_node(self, node):
         if node in self.node_map:
@@ -49,7 +51,11 @@ class Graph(object):
             return False
 
     def neighbors(self, node):
-        return self.node_map[node]
+        neighbors_list = []
+        for key in self.node_map[node]:
+            neighbors_list.append(key)
+            print(neighbors_list)
+        return neighbors_list
 
     def adjacent(self, node1, node2):
         try:

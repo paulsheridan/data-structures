@@ -52,7 +52,7 @@ def test_add_edge(key, value):
     from simple_graph import Graph
     new_graph = Graph()
     new_graph.add_edge(key, value)
-    assert new_graph.node_map[key][0] == value
+    assert new_graph.node_map[key][value] == 1
 
 
 @pytest.mark.parametrize('key, value', PAIR_LIST)
@@ -68,7 +68,7 @@ def test_del_edge(key, value):
     new_graph = Graph()
     new_graph.add_edge(key, value)
     new_graph.del_edge(key, value)
-    assert value not in new_graph.node_map[key]
+    assert new_graph.node_map[key][value] == 0
 
 
 @pytest.mark.parametrize('value', VAL_LIST)
@@ -80,11 +80,13 @@ def test_has_node(value):
 
 
 def test_neighbors():
+    output = ["person", 'are', 77, 6.66778]
     from simple_graph import Graph
     new_graph = Graph()
     for pair in MAP_LIST:
         new_graph.add_edge(pair[0], pair[1])
-    assert new_graph.neighbors(10) == ["person", 'are', 77, 6.66778]
+    for item in output:
+        assert item in new_graph.neighbors(10)
 
 
 @pytest.mark.parametrize('key, value', PAIR_LIST)
