@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from stack import Stack
 from queue import Queue
+from math import inf
+import heapq
 
 
 class Graph(object):
@@ -94,6 +96,33 @@ class Graph(object):
                         queue.enqueue(item)
         except (AttributeError, IndexError):
             return path
+
+
+    def shortest_dist(dist):
+    distance = inf
+    best = None
+    for vertex in dist:
+        if dist[vertex] < best:
+            (distance, best) = (vertex, dist[vertex])
+    return best_node
+
+
+    def dijkstra(self, source):
+        path_dist = {}
+        path_dist[vertex] = 0
+        final_dist = {}
+        while True:
+            shortest = shortest_dist(path_dist)
+            final_dist[shortest] = path_dist[shortest]
+            for item in self.graph[shortest]:
+                if item not in final_dist:
+                    if item not in path_dist:
+                        path_dist[shortest] = final_dist[shortest] + self.graph[item][shortest]
+                    elif final_dist[shortest] + self.graph[item][shortest] < path_dist[shortest]:
+                        path_dist[shortest] = final_dist[shortest] + self.graph[item][shortest]
+        return final_dist
+
+
 
 if __name__ == '__main__':
     new_graph = Graph()
